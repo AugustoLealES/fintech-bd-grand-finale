@@ -52,11 +52,29 @@
       color: #FE555D;
       border: 2px solid #FE555D;
     }
+    .error-message {
+      color: #FF0000;
+      font-size: 0.9em;
+      margin-top: 5px;
+    }
   </style>
 </head>
 <body>
 <h1>Login</h1>
-<form action="LoginServlet" method="post"> <!-- Adicionado o formulário -->
+
+<%
+  // Verifica se há uma mensagem de erro na sessão
+  String errorMessage = (String) session.getAttribute("errorMessage");
+  if (errorMessage != null) {
+%>
+<div class="error-message"><%= errorMessage %></div>
+<%
+    // Limpa a mensagem de erro após exibi-la
+    session.removeAttribute("errorMessage");
+  }
+%>
+
+<form action="LoginServlet" method="post">
   <input type="text" name="email" class="input-field" placeholder="Email" required>
   <input type="password" name="senha" class="input-field" placeholder="Senha" required>
   <button type="submit" class="button login">Entrar</button>

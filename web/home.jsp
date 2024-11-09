@@ -207,9 +207,11 @@
 </head>
 <body>
 <div class="header">
-    <div class="welcome">Bem-vindo, <%= session.getAttribute("userName") != null ? session.getAttribute("userName") : "Usuário" %>!</div>
+    <div class="welcome">Bem-vindo, <%= session.getAttribute("userId") != null ? session.getAttribute("userName") : "Usuário" %>!</div>
 
 </div>
+
+
 
 <div class="content">
     <div class="balance-card">
@@ -221,13 +223,13 @@
     </div>
 
     <div class="button-container">
-        <a href="investimentos.jsp" class="button">
+        <a href="banco-receita" class="button">
             <i class="bi bi-bar-chart-line"></i> <!-- Ícone do Bootstrap -->
-            Tela 1
+            Receitas
         </a>
-        <a href="receitas.jsp" class="button">
+        <a href="banco-despesa" class="button">
             <i class="bi bi-wallet2"></i> <!-- Ícone do Bootstrap -->
-            Tela 2
+            Despesas
         </a>
         <a href="emprestimos.jsp" class="button">
             <i class="bi bi-credit-card"></i> <!-- Ícone do Bootstrap -->
