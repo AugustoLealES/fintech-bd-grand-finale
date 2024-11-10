@@ -18,13 +18,13 @@ public class UserService {
     }
 
     public int getClientIdByEmail(String email) {
-        String query = "SELECT id_cliente FROM Cliente WHERE email = ?";
+        String query = "SELECT ID_CLIENTE FROM Cliente WHERE email = ?";
         try (Connection connection = ConnectionFactory.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, email);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                return rs.getInt("id_cliente");
+                return rs.getInt("ID_CLIENTE");
             }
         } catch (SQLException e) {
             e.printStackTrace(); // Melhore o tratamento em produção
@@ -72,7 +72,7 @@ public class UserService {
     }
 
     private ContaBancaria getAccountByClientId(int clientId) {
-        String query = "SELECT * FROM ContaBancaria WHERE id_cliente = ?";
+        String query = "SELECT * FROM CONTA_BANCARIA WHERE id_cliente = ?";
         try (Connection connection = ConnectionFactory.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setInt(1, clientId);
@@ -104,7 +104,7 @@ public class UserService {
     }
 
     private void insertAccount(ContaBancaria conta) {
-        String query = "INSERT INTO ContaBancaria (id_cliente, tipo_conta, saldo, data_abertura, agencia) VALUES (?, ?, ?, ?, ?)";
+        String query = "INSERT INTO CONTA_BANCARIA (id_cliente, tipo_conta, saldo, data_abertura, agencia) VALUES (?, ?, ?, ?, ?)";
         try (Connection connection = ConnectionFactory.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setInt(1, conta.getIdCliente());

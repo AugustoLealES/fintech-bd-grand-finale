@@ -28,6 +28,9 @@
             color: black;
             cursor: pointer;
         }
+        .button {
+            background-color: #FE555D;
+        }
     </style>
 </head>
 <body class="bg-light">
@@ -132,6 +135,6 @@
         modal.show();
     }
 </script>
-
+<%@ include file="footer.jsp" %>
 </body>
 </html>

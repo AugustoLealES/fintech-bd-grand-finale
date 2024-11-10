@@ -12,7 +12,7 @@ public class ContaBancariaDao {
 
     // Método para inserir uma nova conta bancária
     public void insert(ContaBancaria conta) {
-        String sql = "INSERT INTO ContaBancaria (id_conta, id_cliente, tipo_conta, saldo, data_abertura, agencia) " +
+        String sql = "INSERT INTO CONTA_BANCARIA(id_conta, id_cliente, tipo_conta, saldo, data_abertura, agencia) " +
                 "VALUES (seq_conta.nextval, ?, ?, ?, ?, ?)";
 
         try (Connection conexao = ConnectionFactory.getConnection();
@@ -34,7 +34,7 @@ public class ContaBancariaDao {
     // Método para obter todas as contas bancárias de um cliente específico
     public List<ContaBancaria> getAllByClienteId(int idCliente) {
         List<ContaBancaria> contas = new ArrayList<>();
-        String sql = "SELECT * FROM ContaBancaria WHERE id_cliente = ?";
+        String sql = "SELECT * FROM CONTA_BANCARIA WHERE id_cliente = ?";
 
         try (Connection conexao = ConnectionFactory.getConnection();
              PreparedStatement stmt = conexao.prepareStatement(sql)) {
@@ -61,7 +61,7 @@ public class ContaBancariaDao {
 
     // Método para atualizar o saldo de uma conta bancária
     public void updateSaldo(int idConta, double novoSaldo) {
-        String sql = "UPDATE ContaBancaria SET saldo = ? WHERE id_conta = ?";
+        String sql = "UPDATE CONTA_BANCARIA SET saldo = ? WHERE id_conta = ?";
 
         try (Connection conexao = ConnectionFactory.getConnection();
              PreparedStatement stmt = conexao.prepareStatement(sql)) {
@@ -78,7 +78,7 @@ public class ContaBancariaDao {
 
     // Método para deletar uma conta bancária por ID
     public void delete(int idConta) {
-        String sql = "DELETE FROM ContaBancaria WHERE id_conta = ?";
+        String sql = "DELETE FROM CONTA_BANCARIA WHERE id_conta = ?";
 
         try (Connection conexao = ConnectionFactory.getConnection();
              PreparedStatement stmt = conexao.prepareStatement(sql)) {

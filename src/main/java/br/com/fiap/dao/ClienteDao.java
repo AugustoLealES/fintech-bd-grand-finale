@@ -22,7 +22,7 @@ public class ClienteDao {
             return Optional.empty(); // Retornar vazio indicando que o cliente já existe
         }
 
-        String sql = "INSERT INTO Cliente (nome, email, senha, data_nascimento, cpf) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO cliente (nome, email, senha, data_nascimento, cpf) VALUES (?, ?, ?, ?, ?)";
 
         try (Connection conexao = ConnectionFactory.getConnection();
              PreparedStatement stmt = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {

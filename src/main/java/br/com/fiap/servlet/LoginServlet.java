@@ -27,14 +27,15 @@ public class LoginServlet extends HttpServlet {
             HttpSession session = request.getSession(true);  // true garante que a sessão seja criada caso não exista
             session.setMaxInactiveInterval(30 * 60); // 30 minutos de inatividade
 
-            // Armazenar apenas o ID do cliente e o nome, evitar dados sensíveis
+            // Armazenar apenas o ID do cliente, nome e email, evitando dados sensíveis
             int idCliente = userService.getClientIdByEmail(email);
             String nomeUsuario = userService.getClientNameByEmail(email);
             ContaBancaria contaBancaria = userService.getOrCreateAccount(idCliente);
 
-            // Armazenar no session o ID do usuário, nome, conta e saldo
+            // Armazenar no session o ID do usuário, nome, email, conta e saldo
             session.setAttribute("userId", idCliente);
             session.setAttribute("userName", nomeUsuario);
+            session.setAttribute("userEmail", email);  // Armazenando o email na sessão
             session.setAttribute("contaBancaria", contaBancaria);
             session.setAttribute("userBalance", contaBancaria.getSaldo());
 

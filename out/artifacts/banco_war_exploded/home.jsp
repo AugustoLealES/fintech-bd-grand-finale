@@ -151,6 +151,7 @@
                 display: flex;
                 justify-content: center;
                 margin: 20px 0;
+                background-color: #aaaaaa;
             }
             .button {
                 background-color: #FE555D;
@@ -231,27 +232,11 @@
             <i class="bi bi-wallet2"></i> <!-- Ícone do Bootstrap -->
             Despesas
         </a>
-        <a href="emprestimos.jsp" class="button">
-            <i class="bi bi-credit-card"></i> <!-- Ícone do Bootstrap -->
-            Tela 3
-        </a>
-    </div>
 
-    <div class="gray-box">
-        <span>Label 1</span>
-        <i class="bi bi-check-circle"></i> <!-- Ícone do Bootstrap -->
-    </div>
-    <div class="gray-box">
-        <span>Label 2</span>
-        <i class="bi bi-exclamation-circle"></i> <!-- Ícone do Bootstrap -->
-    </div>
-    <div class="gray-box">
-        <span>Label 3</span>
-        <i class="bi bi-info-circle"></i> <!-- Ícone do Bootstrap -->
-    </div>
-    <div class="gray-box">
-        <span>Label 4</span>
-        <i class="bi bi-question-circle"></i> <!-- Ícone do Bootstrap -->
+        <a href="banco-emprestimo" class="button">
+            <i class="bi bi-credit-card"></i> <!-- Ícone do Bootstrap -->
+            Empréstimos
+        </a>
     </div>
 </div>
 

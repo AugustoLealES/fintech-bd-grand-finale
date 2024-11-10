@@ -20,7 +20,7 @@ public class EmprestimoServlet extends HttpServlet {
     private static final Logger logger = Logger.getLogger(EmprestimoServlet.class.getName());
     private EmprestimoDao emprestimoDao = new EmprestimoDao();
 
-    public EmprestimoServlet() {
+    public EmprestimoServlet() throws SQLException {
     }
 
     // Método doPost para inserir um novo empréstimo
@@ -37,32 +37,68 @@ public class EmprestimoServlet extends HttpServlet {
         }
 
         try {
-            // Recuperando dados da requisição
-            double valorEmprestimo = Double.parseDouble(request.getParameter("valor"));
-            String dataContratacaoStr = request.getParameter("data_contratacao");
-            String dataVencimentoStr = request.getParameter("data_vencimento");
-            double juros = Double.parseDouble(request.getParameter("juros"));
-            double valorPago = Double.parseDouble(request.getParameter("valor_pago"));
-            String statusPagamento = request.getParameter("status_pagamento");
+            // Recuperação dos parâmetros da requisição
+            String valorEmprestimoStr = request.getParameter("VALOR_CONTRATACAO");
+            String dataContratacaoStr = request.getParameter("DATA_CONTRATACAO");
+            String dataVencimentoStr = request.getParameter("DATA_VENCIMENTO");
+            String jurosStr = request.getParameter("JUROS");
+            String valorPagoStr = request.getParameter("VALOR_PAGO");
+            String statusPagamento = request.getParameter("STATUS_PAGAMENTO");
 
-            // Convertendo as datas
+            // Log dos parâmetros para depuração
+            logger.info("Parâmetros recebidos: ");
+            logger.info("Valor Emprestimo: " + valorEmprestimoStr);
+            logger.info("Data Contratação: " + dataContratacaoStr);
+            logger.info("Data Vencimento: " + dataVencimentoStr);
+            logger.info("Juros: " + jurosStr);
+            logger.info("Valor Pago: " + valorPagoStr);
+            logger.info("Status Pagamento: " + statusPagamento);
+
+            // Verificação de campos obrigatórios
+            if (valorEmprestimoStr == null || valorEmprestimoStr.trim().isEmpty() ||
+                    dataContratacaoStr == null || dataContratacaoStr.trim().isEmpty() ||
+                    dataVencimentoStr == null || dataVencimentoStr.trim().isEmpty() ||
+                    jurosStr == null || jurosStr.trim().isEmpty() ||
+                    valorPagoStr == null || valorPagoStr.trim().isEmpty() ||
+                    statusPagamento == null || statusPagamento.trim().isEmpty()) {
+
+                request.setAttribute("errorMessage", "Todos os campos são obrigatórios.");
+                request.getRequestDispatcher("erro.jsp").forward(request, response);
+                return;
+            }
+
+            // Conversão dos valores numéricos e das datas
+            double valorEmprestimo = Double.parseDouble(valorEmprestimoStr);
             LocalDate dataContratacao = LocalDate.parse(dataContratacaoStr);
             LocalDate dataVencimento = LocalDate.parse(dataVencimentoStr);
+            double juros = Double.parseDouble(jurosStr);
+            double valorPago = Double.parseDouble(valorPagoStr);
 
-            // Criando objeto Emprestimo
+            // Criação do objeto Emprestimo
             Emprestimo emprestimo = new Emprestimo(idCliente, valorEmprestimo, dataContratacao, dataVencimento, juros, valorPago, statusPagamento);
 
-            // Inserindo no banco de dados
+            // Log para depuração antes de inserir no banco
+            logger.info("Tentando inserir empréstimo: " + emprestimo);
+
+            // Inserção no banco de dados
             emprestimoDao.insert(emprestimo);
 
-            // Redirecionando para a página de sucesso
-            response.sendRedirect("sucesso.jsp");
+            // Redirecionamento para a página de sucesso
+            response.sendRedirect("banco-emprestimo");
+
+        } catch (NumberFormatException e) {
+            // Erro de conversão de número
+            logger.severe("Erro ao converter valor numérico: " + e.getMessage());
+            request.setAttribute("errorMessage", "Valor numérico inválido.");
+            request.getRequestDispatcher("erro.jsp").forward(request, response);
         } catch (Exception e) {
-            logger.severe("Erro ao adicionar empréstimo: " + e.getMessage());
-            request.setAttribute("errorMessage", "Erro ao adicionar empréstimo: " + e.getMessage());
+            // Exceção genérica
+            logger.severe("Erro inesperado ao adicionar empréstimo: " + e.getMessage());
+            request.setAttribute("errorMessage", "Erro inesperado ao adicionar empréstimo.");
             request.getRequestDispatcher("erro.jsp").forward(request, response);
         }
     }
+
 
     // Método doGet para listar os empréstimos
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

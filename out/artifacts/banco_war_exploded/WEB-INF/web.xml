@@ -26,6 +26,17 @@
         <url-pattern>/cliente</url-pattern>
     </servlet-mapping>
 
+
+    <servlet>
+        <servlet-name>LogoutServlet</servlet-name>
+        <servlet-class>br.com.fiap.servlet.LogoutServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>LogoutServlet</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+
     <servlet>
         <servlet-name>EmprestimoServlet</servlet-name>
         <servlet-class>br.com.fiap.servlet.EmprestimoServlet</servlet-class>
